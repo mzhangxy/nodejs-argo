@@ -1,0 +1,25 @@
+zerops:
+  # 这里的名称必须与您在 Zerops 中创建的服务名称完全一致（即截图中的 nodejs）
+  - setup: nodejs 
+    build:
+      base: alpine/nodejs@20
+      buildCommands:
+        - npm install
+      
+      deployFiles:
+        - index.js
+        - package.json
+
+      cache:
+        - node_modules
+        - package-lock.json
+
+    run:
+      base: alpine/nodejs@20
+      
+      ports:
+        - port: 3000
+          httpSupport: true
+
+      # 按照您的要求，通过 node 启动该文件
+      start: node index.js
